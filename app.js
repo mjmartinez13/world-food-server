@@ -30,7 +30,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(layouts);
-app.use(cors());
+
+if (process.env.NODE_ENV !== 'production') {
+   app.use(cors({
+     credentials: true,
+     origin: ['http://localhost:4200', 'http://localhost:8000']
+   }));
+ }
 
 // const index = require('./routes/index');
 // app.use('/', index);
