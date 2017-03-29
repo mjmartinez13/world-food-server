@@ -32,12 +32,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(layouts);
 app.use(cors());
 
-const index = require('./routes/index');
-app.use('/', index);
+// const index = require('./routes/index');
+// app.use('/', index);
 
 const countryApi = require('./routes/country-api');
 app.use('/api', countryApi);
 
+
+app.use(function (req, res) {
+ res.sendfile(__dirname + '/public/index.html');
+});
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found');
